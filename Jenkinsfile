@@ -18,13 +18,7 @@ pipeline {
             steps {
                 echo "Building $DOCKER_REPO:$TAG\n"
                 sh '''
-                    docker build \
-                      --build-arg RETENTION_POLICY_MAX_VERSION=$MAX_VERSIONS \
-                      --build-arg RETENTION_POLICY_MAX_DAYS=$MAX_DAYS \
-                      --compress --rm \
-                      -t ${DOCKER_REPO}:${TAG} \
-                      -t ${DOCKER_REPO}:latest \
-                      -f ./Dockerfile
+                    docker build --build-arg RETENTION_POLICY_MAX_VERSION=$MAX_VERSIONS --build-arg RETENTION_POLICY_MAX_DAYS=$MAX_DAYS  --compress --rm  -t ${DOCKER_REPO}:${TAG}  -t ${DOCKER_REPO}:latest -f ./Dockerfile
                       '''
             }
         }
