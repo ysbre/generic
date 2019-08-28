@@ -4,13 +4,13 @@ pipeline {
     }
     environment {
         DOCKER_REPO = "artifactory-east.corp.lumsb.com/re_images/dashboard_docker"
-        MAX_VERSIONS = 3
-        MAX_DAYS = 3
-        TAG = $BUILD_ID
+        MAX_VERSIONS = '3'
+        MAX_DAYS = '3'
+	TAG = "${env.BUILD_ID}"
         RELEASE_BRANCH = "master"
         FEATURE_BRANCH = "feature_branch"
-        SLACK_NOTIFY_DEV_TEAM = "#ysb-catalog-manager"
-        SLACK_NOTIFY_SCRUM_TEAM = "#ystore-bib-project"
+        SLACK_NOTIFY_DEV_TEAM = "#ysb-re-dev"
+        SLACK_NOTIFY_SCRUM_TEAM = "#ystore-re-dev"
     }
     stages {
         
