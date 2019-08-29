@@ -13,6 +13,17 @@ pipeline {
         SLACK_NOTIFY_SCRUM_TEAM = "#ystore-re-dev"
     }
     stages {
+	stage('Copy artifacts') {
+		steps {
+			 echo "Copying artifacts from tmp location to workspace"
+			sh '''
+			   cp /tmp/location_for_dashboard_artifacts/*.jar $WORKSPACE
+			   cp /tmp/location_for_dashboard_artifacts/*.xml $WORKSPACE
+			   '''
+		}
+	}
+		    
+	    
         
         stage('Build Docker') {
             steps {
