@@ -1,0 +1,11 @@
+[Unit]
+Description=devopsdash-ui Service
+After=network.target
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/dashboard/Hygieia/UI
+ExecStart=/usr/bin/gulp serve
+Restart=on-abort
+[Install]
+WantedBy=multi-user.target
