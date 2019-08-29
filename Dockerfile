@@ -13,6 +13,6 @@ COPY collector-jira.service /etc/systemd/system/collector-jira.service
 COPY collector-sonar.service /etc/systemd/system/collector-sonar.service
 COPY collector-score.service /etc/systemd/system/collector-score.service
 COPY collector-bitbucket.service /etc/systemd/system/collector-bitbucket.service
-COPY start.sh ./
+COPY startup.sh ./
 RUN chmod +x ./startup.sh
 ENTRYPOINT ./startup.sh
