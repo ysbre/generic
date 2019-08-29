@@ -1,0 +1,10 @@
+[Unit]
+Description=collector-bitbucket Service
+After=network.target
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/java -jar /opt/dashboard/bitbucket-scm-collector-3.1.1-SNAPSHOT.jar --spring.config.name=git --spring.config.location=/opt/dashboard/application.properties -Dlogging.config=file:/opt/dashboard/logback_bitbucket.xml
+Restart=on-abort
+[Install]
+WantedBy=multi-user.target
