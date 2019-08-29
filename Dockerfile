@@ -19,8 +19,8 @@ COPY collector-sonar.service /etc/systemd/system/collector-sonar.service
 COPY collector-score.service /etc/systemd/system/collector-score.service
 COPY collector-bitbucket.service /etc/systemd/system/collector-bitbucket.service
 
-systemctl start devopsdash-api.service
-systemctl start devopsdash-ui.service
-systemctl start collector-bitbucket.service
-systemctl start collector-jira.service
-systemctl start collector-score.service
+RUN systemctl start devopsdash-api.service
+RUN systemctl start devopsdash-ui.service
+RUN systemctl start collector-bitbucket.service
+RUN systemctl start collector-jira.service
+RUN systemctl start collector-score.service
