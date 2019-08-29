@@ -5,7 +5,7 @@ CMD ln -s /opt/dashboard/Hygieia/UI/node_modules/.bin/gulp /usr/bin/gulp
 CMD mkdir -p /opt/dashboard
 WORKDIR /opt/dashboard
 
-COPY /tmp/location_for_dashboard_artifacts/*.jar /tmp/location_for_dashboard_artifacts/*.xml .
+COPY ./*.jar ./*.xml ./
 CMD  git clone https://github.com/ysbre/Hygieia.git
 COPY devopsdash-api.service /etc/systemd/system/devopsdash-api.service
 COPY devopsdash-ui.service /etc/systemd/system/devopsdash-ui.service
