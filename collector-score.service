@@ -1,0 +1,10 @@
+[Unit]
+Description=collector-score Service
+After=network.target
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/java -jar /opt/dashboard/score-collector-3.1.1-SNAPSHOT.jar --spring.config.name=score --spring.config.location=/opt/dashboard/application.properties -Dlogging.config=file:/opt/dashboard/logback_score.xml
+Restart=on-abort
+[Install]
+WantedBy=multi-user.target
