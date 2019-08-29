@@ -39,7 +39,7 @@ pipeline {
             steps {
                 sh '''
                 echo "\nPushing image $DOCKER_REPO:$TAG to artifactory...\n" 
-	              docker push ${DOCKER_REPO}:${TAG} >> $LOG_FILE
+	              docker push ${DOCKER_REPO}:${TAG} 
 	              echo "\nPushing image $DOCKER_REPO:$TAG to artifactory...Done.\n" 
                 '''
 		       } 
