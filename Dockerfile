@@ -14,5 +14,5 @@ COPY collector-sonar.service /etc/systemd/system/collector-sonar.service
 COPY collector-score.service /etc/systemd/system/collector-score.service
 COPY collector-bitbucket.service /etc/systemd/system/collector-bitbucket.service
 COPY start.sh ./
-RUN chmod +x ./start.sh
-ENTRYPOINT ./start.sh
+RUN chmod +x ./startup.sh
+ENTRYPOINT ./startup.sh
