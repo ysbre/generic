@@ -1,5 +1,5 @@
 FROM centos:latest
-RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget net-tools telnet git
+RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget net-tools telnet git which
 RUN yum clean all
 RUN ln -s /opt/dashboard/Hygieia/UI/node/node /usr/bin/node
 RUN ln -s /opt/dashboard/Hygieia/UI/node_modules/.bin/gulp /usr/bin/gulp
