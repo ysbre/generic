@@ -15,4 +15,3 @@ COPY collector-score.service /etc/systemd/system/collector-score.service
 COPY collector-bitbucket.service /etc/systemd/system/collector-bitbucket.service
 COPY startup.sh ./
 RUN chmod +x ./startup.sh
-ENTRYPOINT ./startup.sh
