@@ -42,7 +42,7 @@ pipeline {
                 sh '''
                 echo "\nPushing image $DOCKER_REPO:$TAG to artifactory...\n" 
 	              docker push ${DOCKER_REPO}:${TAG} 
-		      docker push ${DOCKER_REPO}:latest
+		      
 	              echo "\nPushing image $DOCKER_REPO:$TAG to artifactory...Done.\n" 
                 '''
 		       } 
