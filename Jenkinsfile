@@ -57,5 +57,17 @@ pipeline {
               }
             }        
         }
+
+	stage('Deploy to PROD') {
+    	    steps {
+                script {
+		    def PROD = ["devops-dash-fe01.mgmt.sbs.e1a.lumsb.com", "devops-dash-fe02.mgmt.sbs.e1b.lumsb.com"]
+                    for (host in PROD) {
+                        saltresult = salt authtype: 'pam', clientInterface: local(arguments: '', blockbuild: true, function: 'chef.client', jobPollTime: 10, target: host, targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
+                        println(JsonOutput.prettyPrint(saltresult))   
+            	    }
+                }
+            }
+        }	
     }
 }
