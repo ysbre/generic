@@ -14,14 +14,14 @@ RUN mkdir -p /opt/dashboard
 WORKDIR /opt/dashboard
 
 COPY ./*.jar ./*.xml ./
-RUN  git clone https://github.com/ysbre/hygieia-core.git
+RUN  git clone https://github.com/ysbre/hygieia-core.git && git checkout ysbqa
 RUN cd /opt/dashboard/hygieia-core && mvn clean install package
 
 
-RUN git clone https://github.com/ysbre/api.git
+RUN git clone https://github.com/ysbre/api.git && git checkout ysbqa
 RUN cd /opt/dashboard/api && mvn clean install package
 
-RUN  git clone https://github.com/ysbre/Hygieia.git
+RUN  git clone https://github.com/ysbre/Hygieia.git && git checkout ysbqa
 RUN cd /opt/dashboard/Hygieia && mvn clean install package
 
 RUN ln -s /opt/dashboard/Hygieia/UI/node/node /usr/bin/node && ln -s /opt/dashboard/Hygieia/UI/node_modules/.bin/gulp /usr/bin/gulp
