@@ -33,19 +33,23 @@ RUN git clone https://github.com/Hygieia/hygieia-scm-bitbucket-collector.git
 RUN cd /opt/dashboard/hygieia-scm-bitbucket-collector && mvn install
 
 RUN git clone https://github.com/Hygieia/hygieia-publisher-jenkins-plugin.git
-RUN cd /opt/dashboard/hygieia-publisher-jenkins-plugin && mvn install package
+RUN cd /opt/dashboard/hygieia-publisher-jenkins-plugin && mvn clean package
 
 RUN git clone https://github.com/Hygieia/hygieia-misc-score-collector.git
-RUN cd /opt/dashboard/hygieia-misc-score-collector && mvn install package
+RUN cd /opt/dashboard/hygieia-misc-score-collector && mvn install
 
 RUN git clone https://github.com/Hygieia/hygieia-codequality-sonar-collector.git
-RUN cd /opt/dashboard/hygieia-codequality-sonar-collector && mvn install package
+RUN cd /opt/dashboard/hygieia-codequality-sonar-collector && mvn install
 
 RUN git clone https://github.com/Hygieia/hygieia-feature-jira-collector.git
-RUN cd /opt/dashboard/hygieia-feature-jira-collector && mvn install package
+RUN cd /opt/dashboard/hygieia-feature-jira-collector && mvn install
 
-RUN git clone https://github.com/Hygieia/ExecDashboard.git
-RUN cd /opt/dashboard/ExecDashboard && mvn install
+RUN git clone https://ysbre:n9EBMz2uCbmKVCstguCD@bitbucket.org/lumsb-hygieia/execdashboard.git
+RUN cd /opt/dashboard/execdashboard && mvn install
+
+RUN git clone https://ysbre:n9EBMz2uCbmKVCstguCD@bitbucket.org/lumsb-hygieia/hygieia-uptime-pingdom-collector.git
+RUN cd /opt/dashboard/hygieia-uptime-pingdom-collector && mvn install
+
 
 RUN ln -s /opt/dashboard/Hygieia/UI/node_modules/.bin/gulp /usr/bin/gulp
 
