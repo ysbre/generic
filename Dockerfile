@@ -61,6 +61,10 @@ RUN printf "[Unit] \nDescription=collector-score Service \nAfter=network.target 
 
 RUN printf "[Unit] \nDescription=collector-bitbucket Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nExecStart=/bin/java -jar /opt/dashboard/hygieia-scm-bitbucket-collector/target/bitbucket-scm-collector.jar --spring.config.name=git --spring.config.location=/opt/dashboard/application.properties -Dlogging.config=file:/opt/dashboard/hygieia-scm-bitbucket-collector/src/main/resources/logback.xml \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/collector-bitbucket.service
 
-RUN printf "systemctl start devopsdash-api.service \nsystemctl start devopsdash-ui.service \nsystemctl start collector-bitbucket.service \nsystemctl start collector-jira.service \nsystemctl start collector-score.service \nsystemctl start collector-sonar.service \n" > startup.sh
+RUN printf "[Unit] \nDescription=devopsdash-exec-api Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nExecStart=/bin/java -jar /opt/dashboard/ExecDashboard/exec-api/target/exec-api.jar --spring.config.location=/opt/dashboard/api.properties \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/devopsdash-exec-api.service
+
+RUN printf "[Unit] \nDescription=devopsdash-exec-analysis Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nExecStart=/bin/java -jar /opt/dashboard/ExecDashboard/exec-analysis/target/exec-analysis-1.0.0-SNAPSHOT.jar --spring.config.name=portfolio --spring.config.location=/opt/dashboard/analysis.properties \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/devopsdash-exec-analysis.service
+
+RUN printf "systemctl start devopsdash-api.service \nsleep 10 \nsystemctl start devopsdash-ui.service \nsleep 5 \nsystemctl start collector-bitbucket.service \nsystemctl start collector-jira.service \nsystemctl start collector-score.service \nsystemctl start collector-sonar.service \nsystemctl start devopsdash-exec-api.service \nsystemctl start devopsdash-exec-analysis.service \n" > startup.sh
 
 RUN chmod +x ./startup.sh
