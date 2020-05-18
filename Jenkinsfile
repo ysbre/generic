@@ -10,7 +10,7 @@ pipeline {
         DOCKER_REPO = "artifactory-east.corp.lumsb.com/re_images/dashboard_docker"
         MAX_VERSIONS = '3'
         MAX_DAYS = '3'
-	TAG = v2-"${env.BUILD_ID}"
+	TAG = "v2-${env.BUILD_ID}"
         RELEASE_BRANCH = "master"
 	QA_HOST = "devops-dash02.mgmt.sbs.e1b.lumsb.com"
         FEATURE_BRANCH = "feature_branch"
