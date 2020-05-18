@@ -3,7 +3,7 @@ import groovy.json.*
 pipeline {
 
     agent {
-        label 'qa'
+        label 'master'
     }
 
     environment {
@@ -38,7 +38,6 @@ pipeline {
 	        } 
             }
           
-/*
         stage('Deploy to QA') {
             steps {
                 script {
@@ -49,6 +48,7 @@ pipeline {
             }        
         }
 
+/*
         stage('Deploy to PROD') {
     	    steps {
                 script {

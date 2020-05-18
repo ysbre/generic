@@ -69,6 +69,8 @@ RUN printf "[Unit] \nDescription=devopsdash-exec-api Service \nAfter=network.tar
 
 RUN printf "[Unit] \nDescription=devopsdash-exec-analysis Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nExecStart=/bin/java -jar /opt/dashboard/ExecDashboard/exec-analysis/target/exec-analysis-1.0.0-SNAPSHOT.jar --spring.config.name=portfolio --spring.config.location=/opt/dashboard/analysis.properties \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/devopsdash-exec-analysis.service
 
+RUN printf "[Unit] \nDescription=collector-pingdom Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nExecStart=/bin/java -jar /opt/dashboard/hygieia-uptime-pingdom-collector/target/pingdom-uptime-collector.jar --spring.config.name=pingdom --spring.config.location=application.properties \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/collector-pingdom.service
+
 RUN printf "systemctl start devopsdash-api.service \nsleep 10 \nsystemctl start devopsdash-ui.service \nsleep 5 \nsystemctl start collector-bitbucket.service \nsystemctl start collector-jira.service \nsystemctl start collector-score.service \nsystemctl start collector-sonar.service \nsystemctl start devopsdash-exec-api.service \nsystemctl start devopsdash-exec-analysis.service \n" > startup.sh
 
 RUN chmod +x ./startup.sh
