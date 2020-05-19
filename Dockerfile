@@ -2,7 +2,8 @@
 FROM centos:7
 
 ## let's install the baseline dependencies for Hygieia such as java - etc
-RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget net-tools telnet git which libcurl --nogpgcheck
+RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget net-tools telnet git which make libcurl --nogpgcheck
+RUN yum groupinstall -y 'Development Tools'
 RUN yum clean all
 
 RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -
