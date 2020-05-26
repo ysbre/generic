@@ -12,7 +12,7 @@ pipeline {
         MAX_DAYS = '3'
 	TAG = "v2-${env.BUILD_ID}"
         RELEASE_BRANCH = "master"
-	QA_HOST = "devops-dash02.mgmt.sbs.e1b.lumsb.com"
+	QA_HOST = "devops-dash01.mgmt.sbs.e1a.lumsb.com"
         FEATURE_BRANCH = "feature_branch"
         SLACK_NOTIFY_DEV_TEAM = "#ysb-re-dev"
         SLACK_NOTIFY_SCRUM_TEAM = "#ystore-re-dev"
@@ -38,7 +38,6 @@ pipeline {
 	        } 
             }
           
-/*
         stage('Deploy to QA') {
             steps {
                 script {
@@ -49,6 +48,7 @@ pipeline {
             }        
         }
 
+/*
         stage('Deploy to PROD') {
     	    steps {
                 script {
