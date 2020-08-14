@@ -12,7 +12,8 @@ pipeline {
         MAX_DAYS = '3'
 	TAG = "v2-${env.BUILD_ID}"
         RELEASE_BRANCH = "master"
-	QA_HOST = "devops-dash01.mgmt.sbs.e1a.lumsb.com"
+	QA_HOST_1 = "devops-dash01.mgmt.sbs.e1a.lumsb.com"
+	QA_HOST_2 = "devops-dash02.mgmt.sbs.e1b.lumsb.com"
         FEATURE_BRANCH = "feature_branch"
         SLACK_NOTIFY_DEV_TEAM = "#ysb-re-dev"
         SLACK_NOTIFY_SCRUM_TEAM = "#ystore-re-dev"
@@ -41,11 +42,18 @@ pipeline {
         stage('Deploy to QA') {
             steps {
                 script {
-                    echo "Deploying to QA"
-                    saltresult = salt authtype: 'pam', clientInterface: local(arguments: '', blockbuild: true, function: 'chef.client', jobPollTime: 10, target: "${QA_HOST}", targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
+                    echo "Deploying to QA_HOST_1"
+                    saltresult = salt authtype: 'pam', clientInterface: local(arguments: '', blockbuild: true, function: 'chef.client', jobPollTime: 10, target: "${QA_HOST_1}", targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
                     println(JsonOutput.prettyPrint(saltresult))
                 }
-            }        
+            }
+            steps {
+                script {
+                    echo "Deploying to QA_HOST_2"
+                    saltresult = salt authtype: 'pam', clientInterface: local(arguments: '', blockbuild: true, function: 'chef.client', jobPollTime: 10, target: "${QA_HOST_2}", targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
+                    println(JsonOutput.prettyPrint(saltresult))
+                }
+            }   
         }
 
 /*
