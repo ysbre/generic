@@ -15,7 +15,7 @@ RUN tar xzf apache-maven-3.3.9-bin.tar.gz
 RUN mkdir -p /usr/local/maven
 RUN mv apache-maven-3.3.9/ /usr/local/maven/
 RUN ln -s /usr/local/maven/apache-maven-3.3.9/bin/mvn /usr/bin/mvn
-ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.252.b09-2.el7_8.x86_64/jre
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64/jre
 
 ## let's create the main operations directory for the dashboad
 RUN mkdir -p /opt/dashboard
