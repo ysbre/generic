@@ -38,13 +38,14 @@ RUN cd /opt/dashboard/hygieia-core && mvn clean install
 
 # note soon to be using angular 
 RUN git clone https://github.com/Hygieia/Hygieia.git
-RUN cd /opt/dashboard/Hygieia/UI && npm install && touch /root/.angular-config.json && echo N | npm install -g @angular/cli@8.0.3 && ng version
+# RUN cd /opt/dashboard/Hygieia/UI && npm install && touch /root/.angular-config.json && echo N | npm install -g @angular/cli@8.0.3 && ng version
+RUN cd /opt/dashboard/Hygieia/UI && npm install
 
 # RUN git clone https://github.com/Hygieia/api.git
 RUN git clone https://ysbre:n9EBMz2uCbmKVCstguCD@bitbucket.org/lumsb-hygieia/api.git
 RUN cd /opt/dashboard/api && mvn clean install
 
-RUN git clone https://github.com/Hygieia/Hygieia.git
+# RUN git clone https://github.com/Hygieia/Hygieia.git
 RUN cd /opt/dashboard/Hygieia && mvn clean install
 
 ## let's compile the collectors
