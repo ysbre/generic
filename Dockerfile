@@ -67,7 +67,7 @@ RUN cd /opt/dashboard/hygieia-feature-jira-collector && mvn install
 RUN git clone https://ysbre:n9EBMz2uCbmKVCstguCD@bitbucket.org/lumsb-hygieia/execdashboard.git
 RUN cd /opt/dashboard/execdashboard && mvn -Dpmd.failOnViolation=false clean install
 
-RUN cd /opt/dashboard/execdashboard/exec-ui && npm --depth 9999 update && npm rebuild node-sass
+## ## RUN cd /opt/dashboard/execdashboard/exec-ui && npm --depth 9999 update && npm rebuild node-sass
 
 RUN git clone https://ysbre:n9EBMz2uCbmKVCstguCD@bitbucket.org/lumsb-hygieia/hygieia-uptime-pingdom-collector.git
 RUN cd /opt/dashboard/hygieia-uptime-pingdom-collector && mvn install
