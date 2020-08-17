@@ -9,7 +9,7 @@ WORKDIR /opt/dashboard
 RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget net-tools telnet git which make libcurl --nogpgcheck
 RUN yum groupinstall -y 'Development Tools'
 # RUN yum clean all
-RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -
 RUN yum install -y nodejs
 RUN curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
 RUN yum install -y yarn
@@ -67,7 +67,7 @@ RUN cd /opt/dashboard/hygieia-feature-jira-collector && mvn install
 RUN git clone https://ysbre:n9EBMz2uCbmKVCstguCD@bitbucket.org/lumsb-hygieia/execdashboard.git
 RUN cd /opt/dashboard/execdashboard && mvn -Dpmd.failOnViolation=false clean install
 
-## ## RUN cd /opt/dashboard/execdashboard/exec-ui && npm --depth 9999 update && npm rebuild node-sass
+RUN cd /opt/dashboard/execdashboard/exec-ui && npm --depth 9999 update && npm rebuild node-sass
 
 RUN git clone https://ysbre:n9EBMz2uCbmKVCstguCD@bitbucket.org/lumsb-hygieia/hygieia-uptime-pingdom-collector.git
 RUN cd /opt/dashboard/hygieia-uptime-pingdom-collector && mvn install
