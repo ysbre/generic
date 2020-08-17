@@ -1,35 +1,53 @@
 ## let's pull the centos 7 image
 FROM centos:7
 
-## let's install the baseline dependencies for Hygieia such as java - etc
-RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget net-tools telnet git which make libcurl --nogpgcheck
-RUN yum groupinstall -y 'Development Tools'
-RUN yum clean all
-
-RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-RUN yum install -y nodejs
-
-## let's install maven
-RUN wget http://www.eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
-RUN tar xzf apache-maven-3.3.9-bin.tar.gz
-RUN mkdir -p /usr/local/maven
-RUN mv apache-maven-3.3.9/ /usr/local/maven/
-RUN ln -s /usr/local/maven/apache-maven-3.3.9/bin/mvn /usr/bin/mvn
-ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64/jre
-
-## let's create the main operations directory for the dashboad
+# let's create the main operations directory for the dashboad
 RUN mkdir -p /opt/dashboard
 WORKDIR /opt/dashboard
 
+## let's install the baseline dependencies for Hygieia such as java - etc
+RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget net-tools telnet git which make libcurl --nogpgcheck
+RUN yum groupinstall -y 'Development Tools'
+# RUN yum clean all
+RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+RUN yum install -y nodejs
+RUN curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
+RUN yum install -y yarn
+
+## let's install maven
+RUN wget http://www.eu.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+RUN tar xzf apache-maven-3.6.3-bin.tar.gz
+RUN mkdir -p /usr/local/maven
+RUN mv apache-maven-3.6.3/ /usr/local/maven/
+RUN ln -s /usr/local/maven/apache-maven-3.6.3/bin/mvn /usr/bin/mvn
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64/jre
+
+## let's check the environment
+RUN echo "==========================================="
+RUN echo "JAVA_HOME = $JAVA_HOME"
+RUN java -version
+RUN mvn -v
+RUN node -v
+RUN npm -v 
+RUN yarn -v
+RUN echo "==========================================="
+
+## let's compile the Hygieia code base
 RUN git clone https://github.com/Hygieia/hygieia-core.git
 RUN cd /opt/dashboard/hygieia-core && mvn clean install
 
-RUN git clone https://github.com/Hygieia/api.git
+# note soon to be using angular 
+RUN git clone https://github.com/Hygieia/Hygieia.git
+RUN cd /opt/dashboard/Hygieia/UI && npm install && touch /root/.angular-config.json && echo N | npm install -g @angular/cli@8.0.3 && ng version
+
+# RUN git clone https://github.com/Hygieia/api.git
+RUN git clone https://ysbre:n9EBMz2uCbmKVCstguCD@bitbucket.org/lumsb-hygieia/api.git
 RUN cd /opt/dashboard/api && mvn clean install
 
 RUN git clone https://github.com/Hygieia/Hygieia.git
 RUN cd /opt/dashboard/Hygieia && mvn clean install
 
+## let's compile the collectors
 RUN git clone https://github.com/Hygieia/hygieia-scm-bitbucket-collector.git
 RUN cd /opt/dashboard/hygieia-scm-bitbucket-collector && mvn install
 
@@ -79,3 +97,4 @@ RUN printf "[Unit] \nDescription=devopsdash-exec-ui Service \nAfter=network.targ
 RUN printf "systemctl start devopsdash-api.service \nsleep 10 \nsystemctl start devopsdash-ui.service \nsleep 5 \nsystemctl start collector-bitbucket.service \nsystemctl start collector-jira.service \nsystemctl start collector-score.service \nsystemctl start collector-sonar.service \nsystemctl start devopsdash-exec-api.service \nsystemctl start devopsdash-exec-analysis.service \nsystemctl start collector-pingdom.service \n" > startup.sh
 
 RUN chmod +x ./startup.sh
+
