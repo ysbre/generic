@@ -43,13 +43,13 @@ pipeline {
             steps {
                 script {
                     echo "Deploying to QA_HOST_1"
-                    saltresult = salt authtype: 'pam', clientInterface: local(arguments: '', blockbuild: true, function: 'chef.client', jobPollTime: 10, target: "${QA_HOST_1}", targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
+                    saltresult = salt authtype: 'pam', clientInterface: local(arguments: '"chef-client -o recipe[dashboard]"', blockbuild: true, function: 'cmd.run', jobPollTime: 10, target: "${QA_HOST_1}", targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
                     println(JsonOutput.prettyPrint(saltresult))
 		}
 		/*    
                 script {
                     echo "Deploying to QA_HOST_2"
-                    saltresult = salt authtype: 'pam', clientInterface: local(arguments: '', blockbuild: true, function: 'chef.client', jobPollTime: 10, target: "${QA_HOST_2}", targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
+                    saltresult = salt authtype: 'pam', clientInterface: local(arguments: '"chef-client -o recipe[dashboard]"', blockbuild: true, function: 'cmd.run', jobPollTime: 10, target: "${QA_HOST_2}", targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
                     println(JsonOutput.prettyPrint(saltresult))
                 }
 		*/
@@ -62,7 +62,7 @@ pipeline {
                 script {
 		    def PROD = ["devops-dash-fe01.mgmt.sbs.e1a.lumsb.com", "devops-dash-fe02.mgmt.sbs.e1b.lumsb.com"]
                     for (host in PROD) {
-                        saltresult = salt authtype: 'pam', clientInterface: local(arguments: '', blockbuild: true, function: 'chef.client', jobPollTime: 10, target: host, targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
+                        saltresult = salt authtype: 'pam', clientInterface: local(arguments: '"chef-client -o recipe[dashboard]"', blockbuild: true, function: 'cmd.run', jobPollTime: 10, target: host, targetType: 'glob', minionTimeout: 3000), credentialsId: '0fe75ace-194b-4478-96ac-f85c7a0a9004', servername: 'https://salt.corp.lumsb.com:8000'
                         println(JsonOutput.prettyPrint(saltresult))   
             	    }
                 } 
