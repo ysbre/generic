@@ -15,11 +15,11 @@ RUN curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.re
 RUN yum install -y yarn
 
 ## let's install maven
-RUN wget http://www.eu.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-RUN tar xzf apache-maven-3.6.3-bin.tar.gz
+RUN wget http://www.eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+RUN tar xzf apache-maven-3.3.9-bin.tar.gz
 RUN mkdir -p /usr/local/maven
-RUN mv apache-maven-3.6.3/ /usr/local/maven/
-RUN ln -s /usr/local/maven/apache-maven-3.6.3/bin/mvn /usr/bin/mvn
+RUN mv apache-maven-3.3.9/ /usr/local/maven/
+RUN ln -s /usr/local/maven/apache-maven-3.3.9/bin/mvn /usr/bin/mvn
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64/jre
 
 ## let's check the environment
