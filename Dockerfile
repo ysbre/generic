@@ -47,6 +47,9 @@ RUN cd /opt/dashboard/execdashboard && mvn -Dpmd.failOnViolation=false clean ins
 
 RUN cd /opt/dashboard/execdashboard/exec-ui && npm --depth 9999 update
 RUN cd /opt/dashboard/execdashboard/exec-ui && npm install --save-dev node-sass
+RUN cd /opt/dashboard/execdashboard/exec-ui && cp package.json backup-package.json
+RUN cd /opt/dashboard/execdashboard/exec-ui && sed -i 's/--env=prod —disable-host-check/--env=prod --disableHostCheck true/g' package.json
+RUN cd /opt/dashboard/execdashboard/exec-ui && sed -i 's/--proxy-config=proxy.config.json --env=local/--proxy-config=proxy.config.json --env=local --disableHostCheck true/g' package.json
 
 ## let's compile the collectors
 RUN mkdir -p /opt/dashboard/collectors
