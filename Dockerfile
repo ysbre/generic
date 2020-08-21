@@ -76,7 +76,7 @@ RUN cd /opt/dashboard/collectors/hygieia-uptime-pingdom-collector && mvn install
 ## let's create the systemctl service files
 RUN printf "[Unit] \nDescription=devopsdash-api Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nExecStart=/bin/java -jar /opt/dashboard/api/target/api.jar --spring.config.location=/opt/dashboard/application.properties \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/devopsdash-api.service
 
-RUN printf "[Unit] \nDescription=devopsdash-ui Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nWorkingDirectory=/opt/dashboard/UI \nExecStart=/usr/bin/ng serve --host 0.0.0.0 --port 3000 \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/devopsdash-ui.service
+RUN printf "[Unit] \nDescription=devopsdash-ui Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nWorkingDirectory=/opt/dashboard/UI \nExecStart=/usr/bin/ng serve --host 0.0.0.0 --port 3000 --disableHostCheck true \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/devopsdash-ui.service
 
 RUN printf "[Unit] \nDescription=collector-jira Service \nAfter=network.target \n[Service] \nType=simple \nUser=root \nExecStart=/bin/java -jar /opt/dashboard/collectors/hygieia-feature-jira-collector/target/jira-feature-collector.jar --spring.config.name=feature --spring.config.location=/opt/dashboard/collectors/jira.properties -Dlogging.config=file:/opt/dashboard/collectors/hygieia-feature-jira-collector/src/main/resources/logback.xml \nRestart=on-abort \n[Install] \nWantedBy=multi-user.target \n" > /etc/systemd/system/collector-jira.service
 
